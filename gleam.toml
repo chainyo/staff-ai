@@ -1,0 +1,13 @@
+name = "staff_ai"
+description = "Become the CEO of your own AI workforce, efficiently managing countless intelligent agents with minimal resources."
+version = "0.0.1"
+gleam = ">=1.0.0"
+target = "erlang"
+licences = ["Apache-2.0"]
+repository = { type = "github", user = "chainyo", repo = "staff-ai" }
+
+[dependencies]
+gleam_stdlib = "~> 0.34 or ~> 1.0"
+
+[dev-dependencies]
+gleeunit = "~> 1.0"
