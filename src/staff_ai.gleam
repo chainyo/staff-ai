@@ -16,7 +16,17 @@
 /// Copyright (c) 2024 Staff-AI - All rights reserved
 /// 
 import gleam/io
+import gleam/option.{Some}
+import staff_ai/agent.{create}
 
 pub fn main() {
-  io.println("Hello from staff!")
+  let agent =
+    create(
+      "John Doe",
+      "AI researcher",
+      Some(
+        "John is an AI researcher who is passionate about building AI agents that can accomplish tasks for people. He has a PhD in AI and has been working in the field for over 10 years. He is excited to be a part of the Staff-AI team.",
+      ),
+    )
+  io.debug(agent)
 }
