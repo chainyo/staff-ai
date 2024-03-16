@@ -1,7 +1,9 @@
 import gleam/option.{None}
 import gleeunit
 import gleeunit/should
-import staff_ai.{type Agent, type Task, create_agent, create_task}
+import staff_ai.{
+  type Agent, type Squad, type Task, create_agent, create_squad, create_task,
+}
 
 pub fn main() {
   gleeunit.main()
@@ -15,6 +17,24 @@ pub fn agent_test() {
   |> should.equal("Developer")
   agent.context
   |> should.equal(None)
+}
+
+pub fn squad_test() {
+  let squad: Squad =
+    create_squad(
+      "Testing Squad",
+      "The objective is to test Squad instance",
+      [],
+      [],
+    )
+  squad.name
+  |> should.equal("Testing Squad")
+  squad.objective
+  |> should.equal("The objective is to test Squad instance")
+  squad.agents
+  |> should.equal([])
+  squad.tasks
+  |> should.equal([])
 }
 
 pub fn task_test() {

@@ -125,3 +125,39 @@ pub fn create_agent(
   let assert Ok(id) = uuid.generate_v4()
   Agent(id: id, name: name, role: role, context: context)
 }
+
+/// Squad is a group of agents that can are working together on a specific Objective.
+/// 
+/// It represents isolated groups of agents with diverse skills and responsibilities.
+/// The squad has a name, an objective and a list of agents, which are part of the squad.
+/// 
+pub type Squad {
+  Squad(
+    /// Unique identifier of the squad
+    id: UUID,
+    /// Name of the squad, which is used to identify it in your system.
+    /// It can be a real name or a nickname, e.g. "Software Development Team" or "dev_team"
+    name: String,
+    /// Objective of the squad, which is used to identify the goal of the squad in your system.
+    /// It can be a real objective or a nickname, e.g. "Develop the new feature X" or "feature_x"
+    /// The objective should be as clear as possible to be sub-divided into granular tasks.
+    objective: String,
+    /// The list of agents that are part of the squad, this list can evolve over time.
+    agents: List(Agent),
+    /// The list of tasks that are part of the squad, this list will evolve over time
+    /// as tasks are created and completed.
+    tasks: List(Task),
+  )
+}
+
+/// Creates a new squad with the given parameters.
+/// 
+pub fn create_squad(
+  name: String,
+  objective: String,
+  agents: List(Agent),
+  tasks: List(Task),
+) -> Squad {
+  let assert Ok(id) = uuid.generate_v4()
+  Squad(id: id, name: name, objective: objective, agents: agents, tasks: tasks)
+}
