@@ -1,12 +1,29 @@
+import gleam/option.{None}
 import gleeunit
 import gleeunit/should
+import staff_ai.{type Agent, type Task, create_agent, create_task}
 
 pub fn main() {
   gleeunit.main()
 }
 
-// gleeunit test functions end in `_test`
-pub fn hello_world_test() {
-  1
-  |> should.equal(1)
+pub fn agent_test() {
+  let agent: Agent = create_agent("Bob", "Developer", None)
+  agent.name
+  |> should.equal("Bob")
+  agent.role
+  |> should.equal("Developer")
+  agent.context
+  |> should.equal(None)
+}
+
+pub fn task_test() {
+  let task: Task =
+    create_task("Task for testing", "This task is only for testing", None)
+  task.title
+  |> should.equal("Task for testing")
+  task.description
+  |> should.equal("This task is only for testing")
+  task.assigned_agent
+  |> should.equal(None)
 }

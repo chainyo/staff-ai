@@ -15,32 +15,113 @@
 /// 
 /// Copyright (c) 2024 Staff-AI - All rights reserved
 /// 
-import gleam/io
-import gleam/option.{Some}
-import staff_ai/agent.{create as create_agent}
-import staff_ai/task.{create as create_task}
+import birl
+import gleam/option.{type Option, None}
+import ids/uuid
 
-pub fn main() {
-  let agent =
-    create_agent(
-      "John Doe",
-      "AI researcher",
-      Some(
-        "John is an AI researcher who is passionate about building AI agents
-        that can accomplish tasks for people. He has a PhD in AI and has been
-        working in the field for over 10 years.
-        He is excited to be a part of the Staff-AI team.",
-      ),
-    )
-  io.debug(agent)
-  let task =
-    create_task(
-      "Research",
-      "Research AI algorithms",
-      Some(
-        "Research AI algorithms to find the best algorithms for building AI
-        agents that can accomplish tasks for people.",
-      ),
-    )
-  io.debug(task)
+/// Represents a unique identifier, which is a string in the UUID format.
+/// 
+pub type UUID =
+  String
+
+/// The status of the task
+/// 
+pub type TaskStatus {
+  /// The task is ready to be performed
+  Ready
+  /// The task is currently being performed
+  InProgress
+  /// The task has been completed
+  Completed
+  /// The task has been cancelled
+  Cancelled
+  /// The task has failed
+  Failed
+}
+
+/// A task that can be performed by an agent
+/// 
+/// It represents the most simple unit of work that an Agent can perform.
+/// The task can involve any input and output, but it is expected to be
+/// a small unit of work that can be performed in a short amount of time.
+/// 
+pub type Task {
+  Task(
+    /// The unique identifier of the task
+    id: UUID,
+    /// A meaningful title of the task
+    title: String,
+    /// A description of the task, must be detailed enough to be performed
+    description: String,
+    /// The status of the task
+    status: TaskStatus,
+    /// The unique identifier of the agent that has been assigned to perform the task
+    assigned_agent: Option(UUID),
+    /// The time when the task was created
+    created_at: birl.Time,
+    /// The time when the task was last updated
+    updated_at: birl.Time,
+    /// The time when the task was completed
+    completed_at: Option(birl.Time),
+    /// The time when the task was cancelled
+    cancelled_at: Option(birl.Time),
+    /// The time when the task has failed
+    failed_at: Option(birl.Time),
+  )
+}
+
+/// Create a new task
+/// 
+pub fn create_task(
+  title: String,
+  description: String,
+  assigned_agent: Option(UUID),
+) -> Task {
+  let assert Ok(id) = uuid.generate_v4()
+  let created_at = birl.now()
+  Task(
+    id: id,
+    title: title,
+    description: description,
+    status: Ready,
+    assigned_agent: assigned_agent,
+    created_at: created_at,
+    updated_at: created_at,
+    completed_at: None,
+    cancelled_at: None,
+    failed_at: None,
+  )
+}
+
+/// Represents an AI worker in a staff system
+/// 
+/// It represents the most simple unit of you staff who can be assigned to a task.
+/// Agent has a name, a list of skills and a list of tasks, which he is currently working on.
+///
+pub type Agent {
+  Agent(
+    /// Unique identifier of the agent
+    id: UUID,
+    /// Name of the agent, which is used to identify him in your system.
+    /// It can be a real name or a nickname, e.g. "Jane Doe" or "jane_doe"
+    name: String,
+    /// Role of the agent, which is used to identify his skills and responsibilities in your system.
+    /// It can be a real role or a nickname, e.g. "Software Developer" or "dev"
+    role: String,
+    /// Adding a context to an agent is optional, but it can be useful to store additional information about the agent.
+    /// It can be used to store additional information about the agent as it will influence the way it reacts to tasks.
+    /// E.g. "Jane Doe is a technical lead of the project X. She is responsible for the architecture and ..."
+    context: Option(String),
+  )
+}
+
+/// Creates a new agent with the given parameters.
+/// 
+pub fn create_agent(
+  name: String,
+  role: String,
+  context: Option(String),
+) -> Agent {
+  let assert Ok(id) = uuid.generate_v4()
+  Agent(id: id, name: name, role: role, context: context)
 }
