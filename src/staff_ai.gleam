@@ -17,16 +17,30 @@
 /// 
 import gleam/io
 import gleam/option.{Some}
-import staff_ai/agent.{create}
+import staff_ai/agent.{create as create_agent}
+import staff_ai/task.{create as create_task}
 
 pub fn main() {
   let agent =
-    create(
+    create_agent(
       "John Doe",
       "AI researcher",
       Some(
-        "John is an AI researcher who is passionate about building AI agents that can accomplish tasks for people. He has a PhD in AI and has been working in the field for over 10 years. He is excited to be a part of the Staff-AI team.",
+        "John is an AI researcher who is passionate about building AI agents
+        that can accomplish tasks for people. He has a PhD in AI and has been
+        working in the field for over 10 years.
+        He is excited to be a part of the Staff-AI team.",
       ),
     )
   io.debug(agent)
+  let task =
+    create_task(
+      "Research",
+      "Research AI algorithms",
+      Some(
+        "Research AI algorithms to find the best algorithms for building AI
+        agents that can accomplish tasks for people.",
+      ),
+    )
+  io.debug(task)
 }

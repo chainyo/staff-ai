@@ -9,6 +9,7 @@ repository = { type = "github", user = "chainyo", repo = "staff-ai" }
 [dependencies]
 gleam_stdlib = "~> 0.34 or ~> 1.0"
 ids = "~> 0.12"
+birl = "~> 1.5"
 
 [dev-dependencies]
 gleeunit = "~> 1.0"
