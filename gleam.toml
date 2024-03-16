@@ -1,6 +1,6 @@
 name = "staff_ai"
 description = "Become the CEO of your own AI workforce, efficiently managing countless intelligent agents with minimal resources."
-version = "0.0.3"
+version = "0.0.4"
 gleam = ">=1.0.0"
 target = "erlang"
 licences = ["Apache-2.0"]
