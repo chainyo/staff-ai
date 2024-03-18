@@ -10,6 +10,9 @@ repository = { type = "github", user = "chainyo", repo = "staff-ai" }
 gleam_stdlib = "~> 0.34 or ~> 1.0"
 ids = "~> 0.12"
 birl = "~> 1.5"
+gleam_httpc = "~> 2.1"
+envoy = "~> 1.0"
+gleam_http = "~> 3.6"
 
 [dev-dependencies]
 gleeunit = "~> 1.0"

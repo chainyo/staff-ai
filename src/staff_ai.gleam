@@ -16,8 +16,14 @@
 /// Copyright (c) 2024 Staff-AI - All rights reserved
 /// 
 import birl
+import gleam/io
 import gleam/option.{type Option, None}
 import ids/uuid
+import staff_ai/groq
+
+pub fn main() {
+  io.debug(groq.llm_prompt())
+}
 
 /// Represents a unique identifier, which is a string in the UUID format.
 /// 
