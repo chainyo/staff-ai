@@ -19,7 +19,9 @@ pub fn llm_prompt() -> Result(Response(String), Dynamic) {
   req
   |> request.set_method(http.Post)
   |> request.set_header("Authorization", "Bearer " <> api_key)
+  |> request.set_header("Accept", "application/json")
   |> request.set_header("Content-Type", "application/json")
+  |> request.set_header("User-Agent", "Gleam")
   |> request.set_body(
     "{\"messages\": [{\"role\": \"user\", \"content\": \"Explain the importance of low latency LLMs\"}], \"model\": \"mixtral-8x7b-32768\"}",
   )
